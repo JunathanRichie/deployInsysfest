@@ -6,10 +6,8 @@ import Joi from "joi";
 import {
   responseError,
   responseSuccess,
-  responseSuccessWithoutData,
 } from "@/utils/API-Response";
 import bcrypt from "bcrypt";
-import env from "@/config/loadEnv";
 import { StatusCodes } from "http-status-codes";
 import { CustomError } from "@/utils/ErrorHandling";
 import { generateAccessToken } from "@/utils/JWT-Token";

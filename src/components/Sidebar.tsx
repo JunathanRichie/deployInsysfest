@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 

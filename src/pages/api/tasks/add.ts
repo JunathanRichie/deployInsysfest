@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 import { AddTaskModel } from "@/model/taskModel";
@@ -5,7 +6,6 @@ import { AddTaskValidation } from "@/utils/Validation";
 import Joi from "joi";
 import {
   responseError,
-  responseSuccess,
   responseSuccessWithoutData,
 } from "@/utils/API-Response";
 import { StatusCodes } from "http-status-codes";

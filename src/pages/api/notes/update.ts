@@ -5,7 +5,6 @@ import { AddNoteValidation } from "@/utils/Validation";
 import Joi from "joi";
 import {
   responseError,
-  responseSuccess,
   responseSuccessWithoutData,
 } from "@/utils/API-Response";
 import { StatusCodes } from "http-status-codes";

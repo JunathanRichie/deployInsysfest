@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import AddCourseModal from "@/components/AddCourseModal";

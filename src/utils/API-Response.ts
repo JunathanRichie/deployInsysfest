@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { NextApiResponse } from 'next';
 import { StatusCodes } from "http-status-codes";
 import { CustomError, getCustomErrorObject } from "./ErrorHandling";

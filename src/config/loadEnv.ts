@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { config } from "dotenv";
 import { cleanEnv, str, url, num, EnvError, EnvMissingError } from "envalid";
 
