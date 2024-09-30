@@ -8,7 +8,6 @@ const env = cleanEnv(
   process.env,
   {
     DATABASE_URL: url(),
-    PORT: num(),
     SECRET_ACCESS_TOKEN: str(),
     HASH_SALT: str(),
   },
