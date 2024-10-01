@@ -138,7 +138,7 @@ export default function Home() {
 
   const handleAddTaskClick = () => {
     setIsTaskModalVisible(true);
-  }
+  };
 
   const handleCourseClick = (courseId: string) => {
     router.push(`/notes/${courseId}`);
@@ -166,6 +166,34 @@ export default function Home() {
     return `${date} - ${startTimeFormatted}-${endTimeFormatted}`;
   }
 
+  function formatDateTimeRangeBreak(startTime: string, endTime: string) {
+    const dateOptions: Intl.DateTimeFormatOptions = {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    };
+    const timeOptions: Intl.DateTimeFormatOptions = {
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+  
+    const date = new Date(startTime).toLocaleDateString("en-GB", dateOptions);
+    const startTimeFormatted = new Date(startTime)
+      .toLocaleTimeString([], timeOptions)
+      .replace(":", ".");
+    const endTimeFormatted = new Date(endTime)
+      .toLocaleTimeString([], timeOptions)
+      .replace(":", ".");
+  
+    return (
+      <>
+        {date} <br />
+        {startTimeFormatted} - {endTimeFormatted}
+      </>
+    );
+  }
+  
+
   return (
     <div className="relative w-full">
       <Sidebar></Sidebar>
@@ -173,7 +201,10 @@ export default function Home() {
         onClose={handleCloseModal}
         isVisible={isModalVisible}
       ></AddCourseModal>
-      <AddTaskModal onClose={handleCloseTaskModal} isVisible = {isTaskModalVisible}></AddTaskModal>
+      <AddTaskModal
+        onClose={handleCloseTaskModal}
+        isVisible={isTaskModalVisible}
+      ></AddTaskModal>
       <div className="ms-80 mt-6 me-6">
         <p className="text-4xl text-navy-blue font-medium">
           Have A nice day,{" "}
@@ -181,57 +212,25 @@ export default function Home() {
         </p>
         <div className="grid grid-cols-2 gap-2 p-4 bg-light-blue-100 rounded-2rem mt-6">
           {/* Upcoming Tasks Card */}
-          <div className="bg-white border-2 border-blue-100 rounded-2xl p-4">
+          <div className="bg-white border-2 border-blue-100 rounded-2xl p-4 col-span-2">
             <p className="text-xl font-bold text-navy-blue border-b-2 border-light-blue-100">
               Upcoming tasks
             </p>
             <div>
-              <div className="flex justify-between border-t border-light-blue-100">
-                <p className="text-pink font-bold">
-                  Welcoming party design MABA CUP
-                </p>
-                <p className="text-sm text-black font-montserrat text-right font-medium">
-                  18 Sep 2024
-                  <br />
-                  18:30
-                </p>
-              </div>
-              <div className="flex justify-between border-t border-light-blue-100">
-                <p className="text-pink font-bold">
-                  Praktikum Dasar Pemrograman Modul 1
-                </p>
-                <p className="text-sm text-black font-montserrat text-right font-medium">
-                  20 Sep 2024
-                  <br />
-                  15:30-17:30
-                </p>
-              </div>
-              <div className="flex justify-between border-t border-light-blue-100">
-                <p className="text-pink font-bold">Quiz 1 Aljabar Linear</p>
-                <p className="text-sm text-black font-montserrat text-right font-medium">
-                  21 Sep 2024
-                  <br />
-                  08:00-11:00
-                </p>
-              </div>
+              {tasks
+                .filter((task) => task.status === "not-started" || task.status === "in-progress")
+                .map((task) => (
+                  <div
+                    key={task.id}
+                    className="flex justify-between border-t border-light-blue-100"
+                  >
+                    <p className="text-pink font-bold">{task.name}</p>
+                    <p className="text-sm text-black font-montserrat text-right font-medium">
+                      {formatDateTimeRangeBreak(task.startTime, task.endTime)}
+                    </p>
+                  </div>
+                ))}
             </div>
-          </div>
-          {/* Calendar Card */}
-          <div className="bg-white border-2 border-blue-100 rounded-2xl p-4 relative">
-            <p className="text-xl font-bold text-navy-blue border-b-2 border-light-blue-100">
-              Calendar
-            </p>
-            <button className="absolute top-4 right-4 text-gray-500">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path d="M3.172 3.172a4 4 0 015.656 0l.83.83a4 4 0 010 5.656l-5.656 5.656a4 4 0 01-5.656-5.656l.83-.83a4 4 0 015.656 0z" />
-                <path d="M6.586 6.586a2 2 0 10-2.828 2.828L4.586 10l-1.414 1.414a2 2 0 002.828 2.828L10 13.414l1.414 1.414a2 2 0 002.828-2.828L13.414 10l1.414-1.414a2 2 0 00-2.828-2.828L10 6.586 8.586 5.172z" />
-              </svg>
-            </button>
           </div>
           {/* Upcoming Courses Card */}
           <div className="bg-white border-2 border-blue-100 rounded-2xl p-4 relative col-span-2">
@@ -271,7 +270,7 @@ export default function Home() {
               Tasks progress
             </p>
             <button className="absolute top-4 right-4 text-gray-500 text-xl">
-              <img src="/assets/add.png" alt="+" onClick={handleAddTaskClick}/>
+              <img src="/assets/add.png" alt="+" onClick={handleAddTaskClick} />
             </button>
             <div className="w-full mt-4 flex justify-between">
               <div className="w-[23%] rounded-2xl border-2 border-light-blue-100 min-h-96">
